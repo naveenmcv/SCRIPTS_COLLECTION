@@ -1,0 +1,92 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RagdollDeath : MonoBehaviour
+{
+
+    [Header("References")]
+    [SerializeField] private Animator animator = null;
+
+
+    private Rigidbody[] ragdollBodiess;
+    private Collider[] ragdollColliderss;
+    public float invokeTime = 2;
+    public float exploforce = 5f;
+
+    //mine nn
+    public GameObject explossionPoint;
+
+    private void Start()
+    {
+        ragdollBodiess = GetComponentsInChildren<Rigidbody>();
+        ragdollColliderss = GetComponentsInChildren<Collider>();
+
+        ToggleRagdoll(false);
+
+        Invoke(nameof(Die), invokeTime);
+
+    }
+
+
+    private void Die()
+    {
+        ToggleRagdoll(true);
+
+        foreach(Rigidbody rb in ragdollBodiess)
+        {
+            //rb.AddExplosionForce(107f, new Vector3(-1f, 0.5f, -1f), 5f, 0f, ForceMode.Impulse);
+            //rb.AddExplosionForce(107f, new Vector3(-31.93f, 1.64f, -18.96f), 5f, 0f, ForceMode.Impulse);
+
+            //nn mine
+            //mine nn
+            Vector3 bar = explossionPoint.transform.position;
+
+            float xx = explossionPoint.transform.position.x;
+            float yy = explossionPoint.transform.position.y;
+            float zz = explossionPoint.transform.position.z;
+
+            //Debug.Log(bar);
+            //Debug.Log(xx);
+            //Debug.Log(yy);
+
+            rb.AddExplosionForce(107f, new Vector3(xx, yy, zz), exploforce, 0f, ForceMode.Impulse);
+        }
+    }
+
+
+
+    private void ToggleRagdoll(bool state)
+    {
+        animator.enabled = !state;
+
+        foreach (Rigidbody rb in ragdollBodiess)
+        {
+            rb.isKinematic = !state;
+        }
+
+        foreach (Collider collider in ragdollColliderss)
+        {
+            collider.enabled = state;
+        }
+
+    }
+
+          
+}
+
+
+
+/*
+
+
+To get the position of a gameobject in the world, you can retrieve a Vector3 (x,y,z) of it's Position from the Transform component that's added by default to every gameobject, as seen in the inspector:
+
+Transform component
+
+gameObject.Transform.position returns the absolute world position. Note that this is the same as GetComponent<Transform>().position on your gameobject.
+
+gameObject.Transform.localPosition returns the position relative to that gameobject parent's position - if your gameobject has a parent whose position is not 0,0,0 this will return the Vector3 value of what you see in the inspector, rather than the absolute world position.
+
+
+*/

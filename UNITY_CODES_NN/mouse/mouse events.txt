@@ -1,0 +1,45 @@
+1.create canvas
+   - add button
+       add event, click and drag button from heiereachy to -event object feild.
+        check of any methods avaialble.
+          
+     2. attach a script with public function.
+          
+      now go and check back in methods list, u will find new custom funciton.         
+
+
+
+
+
+1b ----   how to show button ' Which button is clicked'*************************************************************
+
+        using unityenigne,  - for monobeh
+       unity.UI,  - for text variable
+       unity.eventstystems - it can detect which object is clicked in the game
+
+       1. create text varibble
+           2. assign a new text to the varibale using event detecteion.
+
+>>>
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class Buttonclick1 : MonoBehaviour
+{
+    public Text textFeild;           // assign in inspector the console text
+    public void SetText(string text)         // need to pass a text in inspector, but not required will pass in the below code( even if we add in inspector it will be overriden)
+    {
+        //textFeild.text = text;
+        textFeild.text = EventSystem.current.currentSelectedGameObject.name + "Clicked";       // if .text is not added it will give (error CS0029: Cannot implicitly convert type 'string' to 'UnityEngine.UI.Text') which is unable to convert string to UNity.UI.text... both are different.
+
+    }
+}
+
+<<<
+
+
+
+
+
+
