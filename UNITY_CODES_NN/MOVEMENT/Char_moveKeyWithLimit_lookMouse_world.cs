@@ -47,11 +47,15 @@ public class Char_moveKeyWithLimit_lookMouse_world : MonoBehaviour
 
         */
         //********************************************************************************************************************* ROTATE
-
+        
         //rotation on mouse hover from x and y
         Vector2 mouse_input = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x-mouse_input.y, transform.rotation.eulerAngles.y+mouse_input.x, transform.rotation.eulerAngles.z);
+        //method 1
+        //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x - mouse_input.y, transform.rotation.eulerAngles.y + mouse_input.x, transform.rotation.eulerAngles.z);
+
+        //method 2
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(-mouse_input.y, mouse_input.x, 0f));    //reversed - because its rotaton along axis
 
     }
 
